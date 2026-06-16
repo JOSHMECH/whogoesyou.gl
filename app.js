@@ -1,5 +1,5 @@
 /* ============================================================
-   WhoGoesYou.gl — Core Application
+   WhoGoesYou — Core Application
    Navigation, Matrix Canvas, Utilities
    ============================================================ */
 
@@ -38,18 +38,85 @@ function navigateTo(sectionId) {
   }
 }
 
+
 function toggleMobileMenu() {
-  const navLinks = document.getElementById('navLinks');
   const hamburger = document.getElementById('hamburger');
-  navLinks.classList.toggle('open');
+  const pill = document.getElementById('navPill');
   hamburger.classList.toggle('active');
+  // On mobile: toggle visibility of the pill
+  if (pill) pill.classList.toggle('mobile-open');
 }
 
-// Nav scroll effect
+// ==================== PILL NAVBAR: EXPAND / COLLAPSE ====================
+let navIsExpanded = false;
+
+function initPillNav() {
+  const pill      = document.getElementById('navPill');
+  const track     = document.getElementById('navTrack');
+  const primary   = document.getElementById('navPrimary');
+  const secondary = document.getElementById('navSecondary');
+  if (!pill || !track || !primary || !secondary) return;
+
+  // After lucide renders icons, measure both panels
+  requestAnimationFrame(() => {
+    const primaryW   = primary.scrollWidth;
+    const secondaryW = secondary.scrollWidth;
+
+    // Set pill to primary width initially
+    pill.style.width = primaryW + 'px';
+
+    // Store widths for later use
+    pill.dataset.primaryW   = primaryW;
+    pill.dataset.secondaryW = secondaryW;
+  });
+}
+
+function expandNavPanel() {
+  const pill      = document.getElementById('navPill');
+  const track     = document.getElementById('navTrack');
+  const secondary = document.getElementById('navSecondary');
+  if (!pill || !track || navIsExpanded) return;
+
+  const primaryW   = parseFloat(pill.dataset.primaryW)   || pill.offsetWidth;
+  const secondaryW = parseFloat(pill.dataset.secondaryW) || 400;
+
+  navIsExpanded = true;
+
+  // Expand pill to secondary width
+  pill.style.width = secondaryW + 'px';
+
+  // Slide track left by primaryW
+  track.style.transform = `translateX(-${primaryW}px)`;
+
+  secondary.setAttribute('aria-hidden', 'false');
+}
+
+function collapseNavPanel() {
+  const pill      = document.getElementById('navPill');
+  const track     = document.getElementById('navTrack');
+  const secondary = document.getElementById('navSecondary');
+  if (!pill || !track || !navIsExpanded) return;
+
+  const primaryW = parseFloat(pill.dataset.primaryW) || pill.offsetWidth;
+
+  navIsExpanded = false;
+
+  // Shrink pill back to primary width
+  pill.style.width = primaryW + 'px';
+
+  // Slide track back to origin
+  track.style.transform = 'translateX(0)';
+
+  secondary.setAttribute('aria-hidden', 'true');
+}
+
+// Nav scroll effect — pill moves closer to top
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('nav');
-  nav.classList.toggle('scrolled', window.scrollY > 50);
+  nav.classList.toggle('scrolled', window.scrollY > 60);
 });
+
+
 
 
 // ==================== MATRIX CANVAS BACKGROUND ====================
@@ -58,60 +125,66 @@ function initMatrixCanvas() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
+  let cols, drops;
+
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    const fontSize = 14;
+    cols = Math.floor(canvas.width / fontSize);
+    drops = new Array(cols).fill(0).map(() => Math.random() * (canvas.height / fontSize));
   }
   resize();
   window.addEventListener('resize', resize);
 
-  const chars = 'WHOGOESYOU01アイウエオカキクケコ<>{}[]|/\\';
+  const chars = 'WHOGOESYOU01アイウエオカキクケコサシスセソ<>{}[]|/\\01001110';
   const fontSize = 14;
-  const columns = Math.floor(canvas.width / fontSize);
-  const drops = new Array(columns).fill(1);
-
-  // Randomize initial drop positions
-  for (let i = 0; i < drops.length; i++) {
-    drops[i] = Math.random() * canvas.height / fontSize;
-  }
-
   let lastTime = 0;
-  const interval = 60; // 60ms interval (approx 16 FPS) for super calm movement
+  const TICK = 45; // ms between frames (~22 FPS) — snappy but not frantic
 
-  function draw(timestamp) {
+  function draw(ts) {
     requestAnimationFrame(draw);
+    if (ts - lastTime < TICK) return;
+    lastTime = ts;
 
-    if (!timestamp) timestamp = 0;
-    const elapsed = timestamp - lastTime;
-    if (elapsed < interval) return;
-    lastTime = timestamp;
-
-    ctx.fillStyle = 'rgba(9, 10, 15, 0.05)'; // Matches --bg-deep with slower fade out
+    // Translucent black overlay — controls how long the trail persists
+    ctx.fillStyle = 'rgba(3, 3, 3, 0.18)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.font = `${fontSize}px JetBrains Mono, monospace`;
+    ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
 
-    for (let i = 0; i < drops.length; i++) {
+    for (let i = 0; i < cols; i++) {
       const char = chars[Math.floor(Math.random() * chars.length)];
       const x = i * fontSize;
       const y = drops[i] * fontSize;
 
-      // Vary brightness with subtle green matrix theme
-      const brightness = Math.random();
-      if (brightness > 0.96) {
-        ctx.fillStyle = 'rgba(16, 185, 129, 1.0)';  // Solid bright flash
-      } else if (brightness > 0.8) {
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.65)'; // Semi-solid normal drop
+      // Bright white head, then solid green body, then dim tail
+      const rand = Math.random();
+      if (rand > 0.95) {
+        // Glowing white head character
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#10b981';
+        ctx.fillStyle = '#eefff8';
+      } else if (rand > 0.6) {
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = '#10b981';
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.95)';
+      } else if (rand > 0.25) {
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.55)';
       } else {
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.3)';  // Faint drop
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
       }
 
       ctx.fillText(char, x, y);
+      ctx.shadowBlur = 0;
 
-      if (y > canvas.height && Math.random() > 0.985) {
+      // Reset drop after it passes the bottom
+      if (y > canvas.height && Math.random() > 0.975) {
         drops[i] = 0;
       }
-      drops[i]++;
+      drops[i] += 0.5; // half-step speed — smooth and cinematic
     }
   }
 
@@ -409,7 +482,7 @@ function initTerminalShell() {
       // Print prompt echo
       const echoLine = document.createElement('div');
       echoLine.className = 'terminal-line';
-      echoLine.innerHTML = `<span class="terminal-prompt">user@gurulabs-node:~$</span> ${commandLine}`;
+      echoLine.innerHTML = `<span class="terminal-prompt">user@secnode:~$</span> ${commandLine}`;
       buffer.appendChild(echoLine);
       
       // Parse command parts
@@ -467,12 +540,12 @@ async function executeTerminalCommand(cmd, args) {
       
     case 'neofetch':
       await writeToTerminal([
-        `   <span class="text-green">.---.</span>          <span class="text-green">user@gurulabs-node</span>`,
+        `   <span class="text-green">.---.</span>          <span class="text-green">user@secnode</span>`,
         `  <span class="text-green">/     \\</span>         ------------------`,
-        `  <span class="text-green">| () () |</span>       OS: Gurulabs Security OS v1.0`,
+        `  <span class="text-green">| () () |</span>       OS: SecurityNode OS v1.0`,
         `   <span class="text-green">\\  ^  /</span>        Host: Web-Container Client Node`,
         `    <span class="text-green">|||||</span>         Uptime: 4 hours, 32 mins`,
-        `                  Shell: gurush v1.0.0`,
+        `                  Shell: secsh v1.0.0`,
         `                  Resolution: ${window.screen.width}x${window.screen.height}`,
         `                  Browser: ${navigator.userAgent.substring(0, 30)}...`,
         `                  Memory: 4096MB simulated`,
@@ -481,7 +554,7 @@ async function executeTerminalCommand(cmd, args) {
       break;
       
     case 'ping':
-      const host = args[0] || 'gurulabs.africa';
+      const host = args[0] || 'whogoesyou.io';
       await writeToTerminal([
         `PING ${host} (197.210.64.9) 56(84) bytes of data.`,
         `64 bytes from 197.210.64.9: icmp_seq=1 ttl=54 time=28.4 ms`,
@@ -514,7 +587,7 @@ async function executeTerminalCommand(cmd, args) {
           if (validTools.includes(pkg)) {
             await writeToTerminal([`Package 'wg-tool-${pkg}' is already pre-installed.`]);
           } else {
-            await writeToTerminal([`[ERROR] Package 'wg-tool-${pkg}' not found in Gurulabs repo repositories.`]);
+            await writeToTerminal([`[ERROR] Package 'wg-tool-${pkg}' not found in SecurityNode repositories.`]);
           }
         } else if (installedTools[pkg]) {
           await writeToTerminal([`Package 'wg-tool-${pkg}' is already installed and active.`]);
@@ -527,7 +600,7 @@ async function executeTerminalCommand(cmd, args) {
             `  wg-tool-${pkg}`,
             `Need to get 142 kB of archives.`,
             `After this operation, 384 kB of additional disk space will be used.`,
-            `Get:1 http://archive.gurulabs.africa secure/main wg-tool-${pkg} [142 kB]`,
+            `Get:1 http://archive.securitynode.io secure/main wg-tool-${pkg} [142 kB]`,
             `Unpacking wg-tool-${pkg} ...`,
             `Setting up wg-tool-${pkg} ...`,
             `Processing triggers for security-node-service ...`,
@@ -595,7 +668,7 @@ async function executeTerminalCommand(cmd, args) {
           else if (cmd === 'phishing') {
             await writeToTerminal([
               `[+] Running Phishing Awareness Console Module...`,
-              `[!] Scenario 1: Invoice email from 'billing-gurulabs@gmai1.com'.`,
+              `[!] Scenario 1: Invoice email from 'billing-support@gmai1.com'.`,
               `[!] Red flag found: gmai1.com character substitution (look-alike domain).`,
               `[!] Audit complete. Review all scenarios in visual UI: launch phishing`
             ]);
@@ -617,7 +690,7 @@ async function executeTerminalCommand(cmd, args) {
             ]);
             completeAssessment('quiz');
           } else if (cmd === 'osint') {
-            const targetHandle = args[0] || 'gurulabs';
+            const targetHandle = args[0] || 'target_user';
             await writeToTerminal([
               `[+] Querying public footprints for: ${targetHandle}`,
               `[EXPOSED] Social profiles resolved on: Twitter/X, GitHub, LinkedIn`,
@@ -635,7 +708,7 @@ async function executeTerminalCommand(cmd, args) {
             ]);
             completeAssessment('network');
           } else if (cmd === 'breach') {
-            const email = args[0] || 'ceo@gurulabs.africa';
+            const email = args[0] || 'admin@example.com';
             await writeToTerminal([
               `[+] Querying data breach tables for email: ${email}`,
               `[BREACHED] Match found: 'Adobe Leak' (2013) - Exposed: passwords, hints`,
@@ -680,11 +753,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
   if (window.lucide) {
     lucide.createIcons();
+    // Measure pill panels after icons render
+    initPillNav();
   }
 
   // Animate stats on load
   setTimeout(() => {
-    showToast('Welcome to WhoGoesYou.gl Node', 'shield-check');
+    showToast('Welcome to WhoGoesYou Node', 'shield-check');
   }, 1000);
   
   // Custom dashboard integrations

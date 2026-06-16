@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="WhoGoesYou.gl — A comprehensive digital security assessment platform. Test your exposure with 6 interactive tools.">
-  <meta name="keywords" content="security, digital posture, phishing, password, OSINT, Gurulabs Africa">
-  <meta name="author" content="Gurulabs Africa">
+    content="WhoGoesYou — A comprehensive digital security assessment platform. Test your exposure with 6 interactive tools.">
+  <meta name="keywords" content="security, digital posture, phishing, password, OSINT, cybersecurity">
+  <meta name="author" content="WhoGoesYou Security">
   <meta name="theme-color" content="#020203">
 
-  <title>WhoGoesYou.gl — Digital Posture Assessment Platform</title>
+  <title>WhoGoesYou — Digital Posture Assessment Platform</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="logo.png">
@@ -31,33 +31,67 @@
   <!-- App Container -->
   <div class="app-container">
 
-    <!-- ==================== NAVIGATION ==================== -->
-    <nav class="nav" id="nav">
-      <div class="nav__brand" onclick="navigateTo('home')">
-        <img src="logo.png" alt="WhoGoesYou.gl Logo" class="nav__logo-img">
-        <span class="nav__logo">WhoGoesYou<span style="color: var(--accent)">.gl</span></span>
-      </div>
+    <!-- ==================== NAVIGATION — Floating Pill Toolbar ==================== -->
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <div class="nav__pill" id="navPill">
+        <div class="nav__pill-track" id="navTrack">
 
+          <!-- PRIMARY PANEL: Brand + core nav + expand button -->
+          <div class="nav__panel nav__panel--primary" id="navPrimary">
+            <!-- Brand -->
+            <div class="nav__brand" onclick="navigateTo('home')" title="Home">
+              <img src="logo.png" alt="WhoGoesYou" class="nav__logo-img">
+              <span class="nav__logo">WhoGoesYou</span>
+            </div>
+
+            <div class="nav__divider"></div>
+
+            <!-- Primary nav links -->
+            <ul class="nav__links" id="navLinks">
+              <li><a class="nav__link active" data-section="home"    onclick="navigateTo('home')"    title="Home"><i data-lucide="home" class="nav__link-icon"></i><span class="nav__link-label">Home</span></a></li>
+              <li><a class="nav__link"         data-section="tools"   onclick="navigateTo('tools')"   title="Tools"><i data-lucide="grid-2x2" class="nav__link-icon"></i><span class="nav__link-label">Tools</span></a></li>
+              <li><a class="nav__link"         data-section="phishing" onclick="navigateTo('phishing')" title="Phishing"><i data-lucide="mail-warning" class="nav__link-icon"></i><span class="nav__link-label">Phishing</span></a></li>
+              <li><a class="nav__link"         data-section="network" onclick="navigateTo('network')" title="Network"><i data-lucide="wifi" class="nav__link-icon"></i><span class="nav__link-label">Network</span></a></li>
+            </ul>
+
+            <!-- Expand arrow -->
+            <button class="nav__toggle nav__toggle--expand" id="navExpand" onclick="expandNavPanel()" aria-label="Show more" title="More tools">
+              <i data-lucide="chevron-right" class="nav__toggle-icon"></i>
+            </button>
+          </div>
+
+          <!-- SECONDARY PANEL: Back + extra nav links -->
+          <div class="nav__panel nav__panel--secondary" id="navSecondary" aria-hidden="true">
+            <!-- Back arrow -->
+            <button class="nav__toggle nav__toggle--back" id="navCollapse" onclick="collapseNavPanel()" aria-label="Go back" title="Back">
+              <i data-lucide="chevron-left" class="nav__toggle-icon"></i>
+            </button>
+
+            <div class="nav__divider"></div>
+
+            <!-- Secondary nav links -->
+            <ul class="nav__links nav__links--secondary">
+              <li><a class="nav__link" data-section="password" onclick="navigateTo('password'); collapseNavPanel();" title="Password"><i data-lucide="key-round" class="nav__link-icon"></i><span class="nav__link-label">Password</span></a></li>
+              <li><a class="nav__link" data-section="quiz"     onclick="navigateTo('quiz'); collapseNavPanel();"     title="Quiz"><i data-lucide="brain" class="nav__link-icon"></i><span class="nav__link-label">Quiz</span></a></li>
+              <li><a class="nav__link" data-section="osint"    onclick="navigateTo('osint'); collapseNavPanel();"    title="OSINT"><i data-lucide="search" class="nav__link-icon"></i><span class="nav__link-label">OSINT</span></a></li>
+              <li><a class="nav__link" data-section="breach"   onclick="navigateTo('breach'); collapseNavPanel();"   title="Breach"><i data-lucide="shield-alert" class="nav__link-icon"></i><span class="nav__link-label">Breach</span></a></li>
+            </ul>
+          </div>
+
+        </div><!-- /.nav__pill-track -->
+      </div><!-- /.nav__pill -->
+
+      <!-- Mobile hamburger (shows only on xs screens) -->
       <button class="nav__hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
-
-      <ul class="nav__links" id="navLinks">
-        <li><a class="nav__link active" data-section="home" onclick="navigateTo('home')">Home</a></li>
-        <li><a class="nav__link" data-section="tools" onclick="navigateTo('tools')">Tools</a></li>
-        <li><a class="nav__link" data-section="phishing" onclick="navigateTo('phishing')">Phishing</a></li>
-        <li><a class="nav__link" data-section="password" onclick="navigateTo('password')">Password</a></li>
-        <li><a class="nav__link" data-section="quiz" onclick="navigateTo('quiz')">Quiz</a></li>
-        <li><a class="nav__link" data-section="osint" onclick="navigateTo('osint')">OSINT</a></li>
-        <li><a class="nav__link" data-section="network" onclick="navigateTo('network')">Network</a></li>
-        <li><a class="nav__link" data-section="breach" onclick="navigateTo('breach')">Breach</a></li>
-      </ul>
     </nav>
+
 
     <!-- ==================== HERO SECTION ==================== -->
     <section class="section section--full active" id="section-home">
       <div class="hero">
-        <img src="logo.png" alt="WhoGoesYou.gl" class="hero__logo">
+        <img src="logo.png" alt="WhoGoesYou" class="hero__logo">
 
         <h1 class="hero__title">
           <span class="hero__title-line text-white">Know Your</span>
@@ -177,7 +211,7 @@
         <div class="terminal-section">
           <div class="section__header">
             <div class="section__badge">// Interactive Console Node</div>
-            <h2 class="section__title">Gurulabs Security Terminal</h2>
+            <h2 class="section__title">Security Terminal</h2>
             <p class="section__subtitle">Execute scans, encode data, or install tools using custom shell commands. Type <code class="text-green font-bold">help</code> to list commands.</p>
           </div>
 
@@ -188,17 +222,17 @@
                 <span class="terminal-dot terminal-dot--minimize"></span>
                 <span class="terminal-dot terminal-dot--expand"></span>
               </div>
-              <div class="terminal-header__title">user@gurulabs-node:~</div>
+              <div class="terminal-header__title">user@secnode:~</div>
             </div>
             <div class="terminal-scroll" id="terminal-scroll">
               <div class="terminal-buffer" id="terminal-buffer">
-                <div class="terminal-line text-muted">WhoGoesYou Security Core Console v1.0.0 (Gurulabs Linux)</div>
+                <div class="terminal-line text-muted">WhoGoesYou Security Core Console v1.0.0 (SecurityNode OS)</div>
                 <div class="terminal-line text-muted">Available packages: 20 | Pre-installed: 12 | Repositories active.</div>
                 <div class="terminal-line text-muted">Type 'help' to show all commands.</div>
                 <div class="terminal-line">&nbsp;</div>
               </div>
               <div class="terminal-prompt-line">
-                <span class="terminal-prompt">user@gurulabs-node:~$</span>
+                <span class="terminal-prompt">user@secnode:~$</span>
                 <input type="text" class="terminal-input" id="terminal-input" autocomplete="off">
               </div>
             </div>
@@ -1087,7 +1121,7 @@
               <input type="text" class="input text-center" id="ransomware-key" placeholder="Enter Decryption Key Signature">
             </div>
             <button class="btn btn--primary w-full" onclick="decryptRansomware()">Submit Decrypt Key</button>
-            <div class="text-muted mt-md text-mono" style="font-size:0.65rem;">Tip: Key is <code class="text-green font-bold">GURULABS-DECRYPT-KEY-2026</code></div>
+            <div class="text-muted mt-md text-mono" style="font-size:0.65rem;">Tip: Key is <code class="text-green font-bold">SEC-DECRYPT-KEY-2026</code></div>
           </div>
         </div>
       </div>
@@ -1205,7 +1239,7 @@
         </div>
         <div class="glass-card">
           <div class="flex justify-between items-center mb-md">
-            <span class="text-mono" style="font-size: 0.8rem;">SSID: GURULABS_OFFICE_5G</span>
+            <span class="text-mono" style="font-size: 0.8rem;">SSID: CORP_OFFICE_5G</span>
             <button class="btn btn--primary" id="wifi-btn" onclick="runWifiCrack()">Decrypt Handshake</button>
           </div>
           <div class="text-mono mt-lg" id="wifi-log" style="height: 180px; overflow-y: auto; font-size: 0.75rem; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border);">
@@ -1213,7 +1247,7 @@
           </div>
           <div id="wifi-result" class="glass-card mt-md hidden" style="border-color: var(--primary);">
             <h4 class="text-green font-bold" style="font-size: 0.95rem;"><i data-lucide="check-circle" class="icon-inline"></i> DECRYPT COMPLETE</h4>
-            <p class="text-secondary mt-sm" style="font-size: 0.8rem;">WPA2 handshake cracked successfully in 2.8 seconds. Network password recovered: <code class="text-green font-bold">GURULABS-WIFI-KEY-2026</code></p>
+            <p class="text-secondary mt-sm" style="font-size: 0.8rem;">WPA2 handshake cracked successfully in 2.8 seconds. Network password recovered: <code class="text-green font-bold">SEC-WIFI-KEY-2026</code></p>
           </div>
         </div>
       </div>
@@ -1221,9 +1255,9 @@
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
-      <img src="logo.png" alt="WhoGoesYou.gl" class="footer__logo">
-      <div class="footer__brand">WhoGoesYou<span style="color: var(--accent)">.gl</span></div>
-      <div class="footer__powered">Powered by Gurulabs Africa</div>
+      <img src="logo.png" alt="WhoGoesYou" class="footer__logo">
+      <div class="footer__brand">WhoGoesYou</div>
+      <div class="footer__powered">WhoGoesYou Security Platform</div>
       <p class="footer__disclaimer">
         This platform is for educational purposes only. All analysis happens client-side.
         No personal data is collected, stored, or transmitted. Built for digital security awareness.

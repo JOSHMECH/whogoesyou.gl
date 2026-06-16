@@ -1,5 +1,5 @@
 /* ============================================================
-   WhoGoesYou.gl — Additional Security Tools Logic (Tools 7-20)
+   WhoGoesYou — Additional Security Tools Logic (Tools 7-20)
    Contains both Visual UI logic and Terminal console outputs
    ============================================================ */
 
@@ -148,7 +148,7 @@ const mockHashDict = {
   '21232f297a57a5a743894a0e4a801fc3': 'admin',
   'e10adc3949ba59abbe56e057f20f883e': '123456',
   'f5134c672b13781297e68bc928f110bc': 'qwerty',
-  'gurulabs2026hashval382910': 'gurulabs'
+  'secnode2026hashval382910': 'secnode'
 };
 
 function crackHash() {
@@ -212,11 +212,11 @@ Updated Date: 2025-10-14T12:00:00Z
 Creation Date: 1997-09-15T04:00:00Z
 Registry Expiry Date: 2028-09-15T04:00:00Z
 Registrar: MarkMonitor Inc.
-Registrant Organization: GuruLabs Corporate Privacy
+Registrant Organization: Aries Domain Privacy
 Registrant State/Province: London
 Registrant Country: UK
-Name Server: NS1.GURULABS.AFRICA
-Name Server: NS2.GURULABS.AFRICA
+Name Server: NS1.AETHER-DNS.NET
+Name Server: NS2.AETHER-DNS.NET
 DNSSEC: unsigned
     `;
     window.completeAssessment('whois');
@@ -224,15 +224,15 @@ DNSSEC: unsigned
 }
 
 function runTerminalWhois(args) {
-  const domain = args[0] || 'gurulabs.africa';
+  const domain = args[0] || 'whogoesyou.io';
   return writeToTerminal([
     `[+] Fetching WHOIS record for: ${domain}`,
     `Domain: ${domain.toUpperCase()}`,
     `Registrar: MarkMonitor Inc.`,
     `Created: 2012-05-18`,
     `Expires: 2027-05-18`,
-    `Name Servers: ns1.gurulabs.africa, ns2.gurulabs.africa`,
-    `Registrant: GuruLabs Africa Ops (Nairobi, Kenya)`
+    `Name Servers: ns1.aether-dns.net, ns2.aether-dns.net`,
+    `Registrant: Aries Corporate Privacy (London, UK)`
   ]);
 }
 
@@ -547,7 +547,7 @@ function decryptRansomware() {
   const decryptBox = document.getElementById('ransomware-decrypt-box');
   const btn = document.getElementById('ransomware-btn');
   
-  if (key === 'GURULABS-DECRYPT-KEY-2026') {
+  if (key === 'SEC-DECRYPT-KEY-2026') {
     ransomwareFiles.forEach(f => {
       const statusEl = document.getElementById(`rf-status-${f.name}`);
       statusEl.textContent = 'Decrypted';
@@ -574,7 +574,7 @@ function runTerminalRansomware(args) {
     ]);
   } else if (action === 'decrypt') {
     const key = args[1];
-    if (key === 'GURULABS-DECRYPT-KEY-2026') {
+    if (key === 'SEC-DECRYPT-KEY-2026') {
       return writeToTerminal([`[SUCCESS] Restoring RSA keys... Files decrypted.`]);
     } else {
       return writeToTerminal([`[ERROR] Invalid recovery key signature.`]);
@@ -592,7 +592,7 @@ const mockExifPhotos = {
     device: 'iPhone 14 Pro',
     date: '2026-05-10 14:32:05',
     gps: '51.5074 N, 0.1278 W',
-    location: 'GuruLabs London Office',
+    location: 'Aether Security London Hub',
     iso: '100',
     exposure: '1/250s'
   },
@@ -881,11 +881,11 @@ function runWifiCrack() {
   btn.disabled = true;
   result.classList.add('hidden');
   log.innerHTML = `> Initiating WPA2 handshake audit...<br>`;
-  log.innerHTML += `> Extracted 4-way handshake packets for SSID: "GURULABS_OFFICE_5G"<br>`;
+  log.innerHTML += `> Extracted 4-way handshake packets for SSID: "CORP_OFFICE_5G"<br>`;
   log.innerHTML += `> BSSID: 00:14:2D:E1:5B:C2 | Client MAC: F4:F5:D6:C7:B8:A9<br>`;
   
   let i = 0;
-  const wordlist = ['password123', 'adminpass', 'homeoffice', 'wifi2025', 'secretkey', 'qwerty', 'gurulabs2026', 'guest123'];
+  const wordlist = ['password123', 'adminpass', 'homeoffice', 'wifi2025', 'secretkey', 'qwerty', 'corpwifi2026', 'guest123'];
   
   const timer = setInterval(() => {
     if (i < wordlist.length) {
@@ -894,7 +894,7 @@ function runWifiCrack() {
       i++;
     } else {
       clearInterval(timer);
-      log.innerHTML += `> testing key: "GURULABS-WIFI-KEY-2026"... <span class="text-green">KEY FOUND!</span><br>`;
+      log.innerHTML += `> testing key: "SEC-WIFI-KEY-2026"... <span class="text-green">KEY FOUND!</span><br>`;
       result.classList.remove('hidden');
       btn.disabled = false;
       window.completeAssessment('wifi');
@@ -905,10 +905,10 @@ function runWifiCrack() {
 function runTerminalWifi(args) {
   return writeToTerminal([
     `[+] Loading WPA2 Handshake decrypt engine...`,
-    `[*] Target BSSID: 00:14:2D:E1:5B:C2 (SSID: GURULABS_WIFI)`,
+    `[*] Target BSSID: 00:14:2D:E1:5B:C2 (SSID: CORP_OFFICE_WIFI)`,
     `[*] Cracking speed: 15,400 keys/sec (Dictionary mode)`,
     `[+] Brute forcing index... 10%... 45%... 80%...`,
-    `[SUCCESS] Key Found! Password: "gurulabs2026"`,
+    `[SUCCESS] Key Found! Password: "corpwifi2026"`,
     `[+] Time elapsed: 4.8s. 4-way handshake decrypted successfully.`
   ]);
 }
