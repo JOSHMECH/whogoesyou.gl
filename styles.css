@@ -115,11 +115,12 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-deep);
 }
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-deep);
+  background: transparent;
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -181,7 +182,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   opacity: 0.25; /* Visible but still background-integrated code rain */
   display: block;
@@ -902,6 +903,11 @@ body::before {
   max-width: 1200px;
   margin: 0 auto;
   display: none;
+}
+
+.section--full {
+  max-width: none !important;
+  padding: 0 !important;
 }
 
 .section.active {
@@ -2017,4 +2023,542 @@ body::before {
 ::selection {
   background: var(--primary-muted);
   color: var(--primary);
+}
+
+/* ============================================================
+   EXPANDED HOME SECTION LAYOUT
+   ============================================================ */
+.home-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-4xl);
+}
+
+.telemetry-section,
+.terminal-section,
+.recommendations-section {
+  padding-top: var(--space-3xl);
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   TELEMETRY CARD WIDGETS
+   ============================================================ */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.telemetry-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.telemetry-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-bright);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.telemetry-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.telemetry-card__badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.telemetry-badge--success {
+  color: var(--primary);
+  background: var(--primary-muted);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.telemetry-badge--warning {
+  color: var(--warning);
+  background: var(--warning-muted);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.telemetry-badge--danger {
+  color: var(--destructive);
+  background: var(--destructive-muted);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.telemetry-card__icon-svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.5px;
+}
+
+.telemetry-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: var(--space-xs);
+}
+
+.telemetry-card__metric {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-bright);
+  margin: var(--space-sm) 0;
+  letter-spacing: -0.5px;
+}
+
+.telemetry-card__details {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.telemetry-detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.telemetry-detail-row span:last-child {
+  color: var(--text-bright);
+}
+
+.telemetry-card__desc {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Telemetry progress bar */
+.telemetry-progress-container {
+  width: 100%;
+}
+
+.telemetry-progress-bar {
+  height: 6px;
+  background: var(--bg-deep);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.telemetry-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--secondary));
+  width: 0%;
+  transition: width 0.4s var(--ease-out);
+}
+
+/* ============================================================
+   INTERACTIVE THREAT SLIDER
+   ============================================================ */
+.threat-slider-container {
+  margin-top: var(--space-lg);
+}
+
+.threat-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-deep);
+  border-radius: var(--radius-full);
+  outline: none;
+  margin: 12px 0;
+}
+
+.threat-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid var(--text-bright);
+  transition: transform 0.1s var(--ease-out);
+}
+
+.threat-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.threat-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   TERMINAL WIDGET
+   ============================================================ */
+.terminal-window {
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+  position: relative;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  background: var(--bg-elevated);
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-header__buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-dot--close { background: #ef4444; }
+.terminal-dot--minimize { background: #f59e0b; }
+.terminal-dot--expand { background: #10b981; }
+
+.terminal-header__title {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  margin-left: var(--space-md);
+}
+
+.terminal-scroll {
+  height: 280px;
+  overflow-y: auto;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-buffer {
+  flex: 1;
+}
+
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--primary);
+  word-break: break-all;
+}
+
+.terminal-line.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.terminal-prompt-line {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin-top: var(--space-sm);
+}
+
+.terminal-prompt {
+  color: var(--primary);
+  margin-right: var(--space-sm);
+  white-space: nowrap;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-bright);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  flex: 1;
+}
+
+/* ============================================================
+   POSTURE HARDENING CHECKLISTS
+   ============================================================ */
+.hardening-progress-banner {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-2xl);
+}
+
+.hardening-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.hardening-progress-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-bright);
+}
+
+.hardening-progress-ratio {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.hardening-progress-bar-container {
+  height: 8px;
+  background: var(--bg-deep);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.hardening-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--destructive), var(--warning), var(--primary));
+  width: 0%;
+  transition: width 0.4s var(--ease-out);
+}
+
+.hardening-progress-desc {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-md);
+}
+
+.rec-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.rec-card__icon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.rec-card__icon-header i {
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.5px;
+}
+
+.rec-card__priority {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.rec-card #rec-credentials .rec-card__priority {
+  color: var(--destructive);
+  background: var(--destructive-muted);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.rec-card #rec-network .rec-card__priority {
+  color: var(--warning);
+  background: var(--warning-muted);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+}
+
+.rec-card #rec-awareness .rec-card__priority {
+  color: var(--accent);
+  background: var(--accent-muted);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.rec-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: var(--space-sm);
+}
+
+.rec-card__desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
+
+.rec-checkbox-list {
+  list-style: none;
+}
+
+.rec-checkbox-list li {
+  margin-bottom: var(--space-md);
+}
+
+.rec-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  cursor: pointer;
+  user-select: none;
+}
+
+.rec-checkbox {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+  position: relative;
+  background: var(--bg-deep);
+}
+
+.rec-checkbox:checked + .checkbox-custom {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.rec-checkbox:checked + .checkbox-custom::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 9px;
+  border: solid var(--text-bright);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-text {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  transition: color var(--transition-fast);
+}
+
+.rec-checkbox:checked ~ .checkbox-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+/* ============================================================
+   LOCKED DASHBOARD OVERLAYS
+   ============================================================ */
+.tool-card.locked {
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-card__lock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(9, 10, 15, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.lock-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--destructive);
+  margin-bottom: var(--space-sm);
+  stroke-width: 2px;
+}
+
+.lock-text {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.lock-text code {
+  display: block;
+  margin-top: var(--space-xs);
+  color: var(--primary);
+  font-size: 0.7rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.tool-card.locked:hover .tool-card__lock {
+  background: rgba(9, 10, 15, 0.82);
+}
+
+.tool-card.unlocking {
+  animation: unlockFlash 0.6s var(--ease-out);
+}
+
+@keyframes unlockFlash {
+  0% { box-shadow: 0 0 0px var(--primary); }
+  50% { box-shadow: 0 0 30px var(--primary); border-color: var(--primary); }
+  100% { box-shadow: 0 0 0px var(--primary); }
+}
+
+@media (max-width: 767px) {
+  .home-content {
+    padding: 0 var(--space-md) var(--space-3xl);
+  }
+  
+  .telemetry-grid,
+  .recommendations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hardening-progress-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
 }

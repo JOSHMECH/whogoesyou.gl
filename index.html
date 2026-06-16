@@ -55,44 +55,297 @@
     </nav>
 
     <!-- ==================== HERO SECTION ==================== -->
-    <section class="hero section active" id="section-home">
-      <img src="logo.png" alt="WhoGoesYou.gl" class="hero__logo">
+    <section class="section section--full active" id="section-home">
+      <div class="hero">
+        <img src="logo.png" alt="WhoGoesYou.gl" class="hero__logo">
 
+        <h1 class="hero__title">
+          <span class="hero__title-line text-white">Know Your</span>
+          <span class="hero__title-line glitch" data-text="Digital Armor">
+            <span class="text-green">Digital</span> <span class="text-cyan">Armor</span>
+          </span>
+        </h1>
 
-      <h1 class="hero__title">
-        <span class="hero__title-line text-white">Know Your</span>
-        <span class="hero__title-line glitch" data-text="Digital Armor">
-          <span class="text-green">Digital</span> <span class="text-cyan">Armor</span>
-        </span>
-      </h1>
+        <p class="hero__subtitle">
+          Secure your perimeter with 20 professional security tools.
+          Scan systems, analyze exposures, and harden your digital footprint.
+        </p>
 
-      <p class="hero__subtitle">
-        Six powerful tools to assess your cybersecurity posture.
-        Identify vulnerabilities, test your awareness, and strengthen
-        your digital defenses — all in one platform.
-      </p>
+        <div class="hero__cta-group">
+          <button class="btn btn--primary btn--lg" onclick="navigateTo('tools')" id="cta-explore">
+            <i data-lucide="play" class="btn-icon"></i> Explore Tools
+          </button>
+          <button class="btn btn--outline btn--lg" onclick="document.getElementById('home-terminal').scrollIntoView({behavior:'smooth'});" id="cta-terminal">
+            <i data-lucide="terminal" class="btn-icon"></i> Terminal Shell
+          </button>
+        </div>
 
-      <div class="hero__cta-group">
-        <button class="btn btn--primary btn--lg" onclick="navigateTo('tools')" id="cta-explore">
-          <i data-lucide="play" class="btn-icon"></i> Explore Tools
-        </button>
-        <button class="btn btn--outline btn--lg" onclick="navigateTo('quiz')" id="cta-quiz">
-          <i data-lucide="award" class="btn-icon"></i> Take the Quiz
-        </button>
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <span class="hero__stat-value" id="stat-tools">20</span>
+            <span class="hero__stat-label">Security Tools</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value" id="stat-scenarios">40+</span>
+            <span class="hero__stat-label">Scenarios</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-value" id="stat-client">100%</span>
+            <span class="hero__stat-label">Client-Side</span>
+          </div>
+        </div>
       </div>
 
-      <div class="hero__stats">
-        <div class="hero__stat">
-          <span class="hero__stat-value" id="stat-tools">6</span>
-          <span class="hero__stat-label">Security Tools</span>
+      <!-- ==================== HOME EXPANDED CONTENT ==================== -->
+      <div class="home-content">
+        
+        <!-- Live Threat Telemetry Hub -->
+        <div class="telemetry-section">
+          <div class="section__header">
+            <div class="section__badge">// Threat Telemetry Hub</div>
+            <h2 class="section__title">Live Security Telemetry</h2>
+            <p class="section__subtitle">Real-time indicators analyzing browser metrics, simulated local threat surfaces, and active assessment status.</p>
+          </div>
+
+          <div class="telemetry-grid">
+            <!-- Card 1: Browser Profile Telemetry -->
+            <div class="telemetry-card" id="telemetry-browser">
+              <div class="telemetry-card__header">
+                <span class="telemetry-card__badge telemetry-badge--warning" id="telemetry-browser-status">EXPOSED</span>
+                <i data-lucide="monitor" class="telemetry-card__icon-svg text-cyan"></i>
+              </div>
+              <h3 class="telemetry-card__title">Browser Profile</h3>
+              <div class="telemetry-card__metric" id="telemetry-browser-os">Detecting...</div>
+              <div class="telemetry-card__details">
+                <div class="telemetry-detail-row"><span>UA Engine:</span> <span id="telemetry-browser-engine" class="text-mono">Detecting...</span></div>
+                <div class="telemetry-detail-row"><span>Resolution:</span> <span id="telemetry-browser-res" class="text-mono">Detecting...</span></div>
+              </div>
+              <button class="btn btn--outline btn--sm w-full mt-lg" onclick="launchTool('network')">
+                <i data-lucide="shield-alert" class="btn-icon"></i> Assess Fingerprint
+              </button>
+            </div>
+
+            <!-- Card 2: Interactive Threat Matrix Slider -->
+            <div class="telemetry-card" id="telemetry-threat-slider">
+              <div class="telemetry-card__header">
+                <span class="telemetry-card__badge" id="telemetry-threat-badge">MEDIUM EXPOSURE</span>
+                <i data-lucide="shield-alert" class="telemetry-card__icon-svg text-amber" id="telemetry-threat-icon"></i>
+              </div>
+              <h3 class="telemetry-card__title">Simulated Threat Level</h3>
+              <div class="telemetry-card__metric" id="telemetry-threat-level">65<span style="font-size: 1rem; color: var(--text-secondary);">/100</span></div>
+              
+              <div class="threat-slider-container">
+                <input type="range" min="0" max="100" value="65" class="threat-slider" id="threat-level-slider">
+                <div class="threat-slider-labels">
+                  <span>Safe</span>
+                  <span>Moderate</span>
+                  <span>Critical</span>
+                </div>
+              </div>
+              <p class="telemetry-card__desc mt-md" id="threat-level-advice">
+                Scan your posture to identify open ports and WebRTC leak vectors.
+              </p>
+            </div>
+
+            <!-- Card 3: Self-Assessment Status -->
+            <div class="telemetry-card" id="telemetry-assessment-progress">
+              <div class="telemetry-card__header">
+                <span class="telemetry-card__badge telemetry-badge--warning" id="telemetry-assessment-badge">PENDING AUDIT</span>
+                <i data-lucide="award" class="telemetry-card__icon-svg text-magenta"></i>
+              </div>
+              <h3 class="telemetry-card__title">Assessment Status</h3>
+              <div class="telemetry-card__metric" id="telemetry-assessment-count">0<span style="font-size: 1.2rem; color: var(--text-secondary);">/20 Tools</span></div>
+              
+              <div class="telemetry-progress-container mt-md">
+                <div class="telemetry-progress-bar">
+                  <div class="telemetry-progress-fill" id="telemetry-assessment-progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between mt-sm text-mono" style="font-size: 0.65rem;">
+                  <span id="telemetry-assessment-percentage">0% Done</span>
+                  <span id="telemetry-assessment-status-text">NEEDS AUDIT</span>
+                </div>
+              </div>
+              
+              <button class="btn btn--primary btn--sm w-full mt-lg" onclick="navigateTo('tools')">
+                <i data-lucide="play" class="btn-icon"></i> Launch Dashboard
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="hero__stat">
-          <span class="hero__stat-value" id="stat-scenarios">25+</span>
-          <span class="hero__stat-label">Scenarios</span>
+
+        <!-- Terminal Section -->
+        <div class="terminal-section">
+          <div class="section__header">
+            <div class="section__badge">// Interactive Console Node</div>
+            <h2 class="section__title">Gurulabs Security Terminal</h2>
+            <p class="section__subtitle">Execute scans, encode data, or install tools using custom shell commands. Type <code class="text-green font-bold">help</code> to list commands.</p>
+          </div>
+
+          <div class="terminal-window" id="home-terminal">
+            <div class="terminal-header">
+              <div class="terminal-header__buttons">
+                <span class="terminal-dot terminal-dot--close"></span>
+                <span class="terminal-dot terminal-dot--minimize"></span>
+                <span class="terminal-dot terminal-dot--expand"></span>
+              </div>
+              <div class="terminal-header__title">user@gurulabs-node:~</div>
+            </div>
+            <div class="terminal-scroll" id="terminal-scroll">
+              <div class="terminal-buffer" id="terminal-buffer">
+                <div class="terminal-line text-muted">WhoGoesYou Security Core Console v1.0.0 (Gurulabs Linux)</div>
+                <div class="terminal-line text-muted">Available packages: 20 | Pre-installed: 12 | Repositories active.</div>
+                <div class="terminal-line text-muted">Type 'help' to show all commands.</div>
+                <div class="terminal-line">&nbsp;</div>
+              </div>
+              <div class="terminal-prompt-line">
+                <span class="terminal-prompt">user@gurulabs-node:~$</span>
+                <input type="text" class="terminal-input" id="terminal-input" autocomplete="off">
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="hero__stat">
-          <span class="hero__stat-value" id="stat-client">100%</span>
-          <span class="hero__stat-label">Client-Side</span>
+
+        <!-- Posture Hardening recommendations Guide -->
+        <div class="recommendations-section">
+          <div class="section__header">
+            <div class="section__badge">// Cybersecurity recommendations</div>
+            <h2 class="section__title">Posture Hardening Guide</h2>
+            <p class="section__subtitle">Interactive guidelines to protect your digital identity and network presence. Audit your progress in real time.</p>
+          </div>
+
+          <!-- Hardening Progress Banner -->
+          <div class="hardening-progress-banner">
+            <div class="hardening-progress-header">
+              <span class="hardening-progress-title"><i data-lucide="shield" class="icon-inline text-red"></i> Hardening Status: <span id="hardening-status-label" class="text-red text-mono">UNARMORED</span></span>
+              <span class="hardening-progress-ratio text-mono" id="hardening-progress-ratio">0/9 Checked</span>
+            </div>
+            <div class="hardening-progress-bar-container">
+              <div class="hardening-progress-bar-fill" id="hardening-progress-bar-fill" style="width: 0%;"></div>
+            </div>
+            <p class="hardening-progress-desc mt-sm" id="hardening-progress-desc">Implement recommendations below to secure your system endpoints and digital posture.</p>
+          </div>
+
+          <div class="recommendations-grid">
+            <!-- Recommendation Card 1: Credentials & Identity -->
+            <div class="rec-card" id="rec-credentials">
+              <div class="rec-card__icon-header text-green">
+                <i data-lucide="key-round"></i>
+                <span class="rec-card__priority text-red">CRITICAL</span>
+              </div>
+              <h3 class="rec-card__title">Credential Hardening</h3>
+              <p class="rec-card__desc">Ensure passwords and logins aren't easily crackable or exposed in database leaks.</p>
+              
+              <ul class="rec-checkbox-list">
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-pw-length">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Use 16+ character master passwords</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-mfa">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Enable Authenticator-based MFA (TOTP)</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-breach">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Scan accounts for active breaches</span>
+                  </label>
+                </li>
+              </ul>
+
+              <div class="rec-card__actions mt-lg">
+                <button class="btn btn--outline btn--sm w-full" onclick="launchTool('password')">
+                  <i data-lucide="lock" class="btn-icon"></i> Analyze Passwords
+                </button>
+              </div>
+            </div>
+
+            <!-- Recommendation Card 2: Network & Session Isolation -->
+            <div class="rec-card" id="rec-network">
+              <div class="rec-card__icon-header text-cyan">
+                <i data-lucide="network"></i>
+                <span class="rec-card__priority text-amber">HIGH</span>
+              </div>
+              <h3 class="rec-card__title">Network & Session Privacy</h3>
+              <p class="rec-card__desc">Minimize browser details shared with web trackers, advertising networks, and ISPs.</p>
+              
+              <ul class="rec-checkbox-list">
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-webrtc">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Disable WebRTC to block local IP leaks</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-cookies">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Block third-party tracking cookies</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-fingerprint">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Use privacy browser with fingerprint randomization</span>
+                  </label>
+                </li>
+              </ul>
+
+              <div class="rec-card__actions mt-lg">
+                <button class="btn btn--outline btn--sm w-full" onclick="launchTool('network')">
+                  <i data-lucide="globe" class="btn-icon"></i> Scan Network Profile
+                </button>
+              </div>
+            </div>
+
+            <!-- Recommendation Card 3: Social Engineering & Awareness -->
+            <div class="rec-card" id="rec-awareness">
+              <div class="rec-card__icon-header text-magenta">
+                <i data-lucide="brain"></i>
+                <span class="rec-card__priority text-cyan">MEDIUM</span>
+              </div>
+              <h3 class="rec-card__title">Social Engineering Shields</h3>
+              <p class="rec-card__desc">Identify deceptive requests, urgent phishing emails, and online manipulation.</p>
+              
+              <ul class="rec-checkbox-list">
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-phishing">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Inspect sender domains for character substitution</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-urgency">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Flag high-urgency financial or login requests</span>
+                  </label>
+                </li>
+                <li>
+                  <label class="rec-checkbox-label">
+                    <input type="checkbox" class="rec-checkbox" data-weight="1" id="rec-cb-verification">
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-text">Perform secondary verification before wire transfers</span>
+                  </label>
+                </li>
+              </ul>
+
+              <div class="rec-card__actions mt-lg">
+                <button class="btn btn--outline btn--sm w-full" onclick="launchTool('quiz')">
+                  <i data-lucide="award" class="btn-icon"></i> Start Hardening Quiz
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -102,104 +355,259 @@
       <div class="section__header">
         <div class="section__badge">// Security Toolkit</div>
         <h2 class="section__title">Choose Your Weapon</h2>
-        <p class="section__subtitle">Six interactive tools to test and improve your cybersecurity awareness. All
-          processing happens locally — your data never leaves your browser.</p>
+        <p class="section__subtitle">20 security modules to test your defences. Locked tools can be installed via the terminal command <code class="text-green font-bold">apt install &lt;package&gt;</code>.</p>
       </div>
 
       <div class="tools-grid">
-        <!-- Phishing Simulator -->
-        <div class="tool-card" onclick="navigateTo('phishing')" id="card-phishing">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
+        <!-- 01: Phishing Simulator -->
+        <div class="tool-card" onclick="launchTool('phishing')" id="card-phishing">
           <div class="tool-card__icon tool-card__icon--red"><i data-lucide="mail-warning"></i></div>
           <h3 class="tool-card__title">Phishing Simulator</h3>
-          <p class="tool-card__desc">Can you spot a fake email? Test your ability to identify phishing attempts with
-            realistic scenarios and learn to recognize red flags.</p>
+          <p class="tool-card__desc">Can you spot a fake email? Test your ability to identify phishing attempts with realistic scenarios.</p>
           <div class="tool-card__tags">
             <span class="tag tag--green">Interactive</span>
-            <span class="tag tag--amber">10 Scenarios</span>
+            <span class="tag tag--amber">SSID 01</span>
           </div>
         </div>
 
-        <!-- Password Analyzer -->
-        <div class="tool-card" onclick="navigateTo('password')" id="card-password">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
+        <!-- 02: Password Analyzer -->
+        <div class="tool-card" onclick="launchTool('password')" id="card-password">
           <div class="tool-card__icon tool-card__icon--green"><i data-lucide="lock"></i></div>
           <h3 class="tool-card__title">Password Analyzer</h3>
-          <p class="tool-card__desc">How strong is your password? Get real-time strength analysis, time-to-crack
-            estimates, and actionable improvement suggestions.</p>
+          <p class="tool-card__desc">How strong is your password? Get strength analysis, time-to-crack estimates, and suggestions.</p>
           <div class="tool-card__tags">
             <span class="tag tag--green">Real-Time</span>
-            <span class="tag tag--cyan">Entropy-Based</span>
+            <span class="tag tag--cyan">SSID 02</span>
           </div>
         </div>
 
-        <!-- Social Engineering Quiz -->
-        <div class="tool-card" onclick="navigateTo('quiz')" id="card-quiz">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
+        <!-- 03: Social Engineering Quiz -->
+        <div class="tool-card" onclick="launchTool('quiz')" id="card-quiz">
           <div class="tool-card__icon tool-card__icon--magenta"><i data-lucide="brain"></i></div>
           <h3 class="tool-card__title">Social Engineering Quiz</h3>
-          <p class="tool-card__desc">How well can you resist social engineering? Take a 15-question quiz covering phone,
-            email, and in-person manipulation tactics.</p>
+          <p class="tool-card__desc">How well can you resist social engineering? Take a 15-question quiz covering manipulation tactics.</p>
           <div class="tool-card__tags">
-            <span class="tag tag--magenta">15 Questions</span>
-            <span class="tag tag--cyan">Badge System</span>
+            <span class="tag tag--magenta">15 Qs</span>
+            <span class="tag tag--cyan">SSID 03</span>
           </div>
         </div>
 
-        <!-- OSINT Scanner -->
-        <div class="tool-card" onclick="navigateTo('osint')" id="card-osint">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
+        <!-- 04: OSINT OSINT Scanner -->
+        <div class="tool-card" onclick="launchTool('osint')" id="card-osint">
           <div class="tool-card__icon tool-card__icon--cyan"><i data-lucide="search"></i></div>
           <h3 class="tool-card__title">OSINT Self-Scan</h3>
-          <p class="tool-card__desc">Discover your digital footprint. See what public information could be found about
-            you and get personalized privacy recommendations.</p>
+          <p class="tool-card__desc">Discover your digital footprint. See what public information could be found about you.</p>
           <div class="tool-card__tags">
-            <span class="tag tag--cyan">Self-Assessment</span>
-            <span class="tag tag--green">Educational</span>
+            <span class="tag tag--cyan">OSINT</span>
+            <span class="tag tag--green">SSID 04</span>
           </div>
         </div>
 
-        <!-- Network Scanner -->
-        <div class="tool-card" onclick="navigateTo('network')" id="card-network">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
+        <!-- 05: Network Scanner -->
+        <div class="tool-card" onclick="launchTool('network')" id="card-network">
           <div class="tool-card__icon tool-card__icon--amber"><i data-lucide="globe"></i></div>
           <h3 class="tool-card__title">Network Scanner</h3>
-          <p class="tool-card__desc">How unique is your browser fingerprint? Analyze your browser's exposure vectors,
-            WebRTC leaks, and tracking vulnerability.</p>
+          <p class="tool-card__desc">How unique is your browser fingerprint? Analyze browser exposure and tracking vulnerability.</p>
           <div class="tool-card__tags">
             <span class="tag tag--amber">Fingerprint</span>
-            <span class="tag tag--green">Privacy Score</span>
+            <span class="tag tag--green">SSID 05</span>
           </div>
         </div>
 
-        <!-- Breach Checker -->
-        <div class="tool-card" onclick="navigateTo('breach')" id="card-breach">
-          <div class="hud-corner hud-corner--tl"></div>
-          <div class="hud-corner hud-corner--tr"></div>
-          <div class="hud-corner hud-corner--bl"></div>
-          <div class="hud-corner hud-corner--br"></div>
+        <!-- 06: Breach Checker -->
+        <div class="tool-card" onclick="launchTool('breach')" id="card-breach">
           <div class="tool-card__icon tool-card__icon--blue"><i data-lucide="shield-alert"></i></div>
           <h3 class="tool-card__title">Breach Checker</h3>
-          <p class="tool-card__desc">Has your email been compromised? Check against known breach databases and learn
-            what steps to take if you've been exposed.</p>
+          <p class="tool-card__desc">Has your email been compromised? Check against known databases and learn mitigation steps.</p>
           <div class="tool-card__tags">
-            <span class="tag tag--cyan">Email Lookup</span>
-            <span class="tag tag--amber">Action Plan</span>
+            <span class="tag tag--cyan">Breached</span>
+            <span class="tag tag--amber">SSID 06</span>
+          </div>
+        </div>
+
+        <!-- 07: Port Scanner -->
+        <div class="tool-card" onclick="launchTool('portscan')" id="card-portscan">
+          <div class="tool-card__icon tool-card__icon--green"><i data-lucide="terminal"></i></div>
+          <h3 class="tool-card__title">Port Scanner</h3>
+          <p class="tool-card__desc">Probe server endpoints for exposed open service ports and analyze active vulnerabilities.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">Scan</span>
+            <span class="tag tag--cyan">SSID 07</span>
+          </div>
+        </div>
+
+        <!-- 08: Hash Cracker -->
+        <div class="tool-card" onclick="launchTool('hash')" id="card-hash">
+          <div class="tool-card__icon tool-card__icon--cyan"><i data-lucide="key-round"></i></div>
+          <h3 class="tool-card__title">Hash Generator & Cracker</h3>
+          <p class="tool-card__desc">Generate cryptography hashes (MD5, SHA-256) and execute dictionary attack cracking audits.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">Crypt</span>
+            <span class="tag tag--green">SSID 08</span>
+          </div>
+        </div>
+
+        <!-- 09: WHOIS Lookup -->
+        <div class="tool-card" onclick="launchTool('whois')" id="card-whois">
+          <div class="tool-card__icon tool-card__icon--magenta"><i data-lucide="database"></i></div>
+          <h3 class="tool-card__title">WHOIS Lookup</h3>
+          <p class="tool-card__desc">Perform registry domain audits to capture ownership metadata and nameserver records.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--magenta">OSINT</span>
+            <span class="tag tag--cyan">SSID 09</span>
+          </div>
+        </div>
+
+        <!-- 10: DNS Analyzer -->
+        <div class="tool-card" onclick="launchTool('dns')" id="card-dns">
+          <div class="tool-card__icon tool-card__icon--amber"><i data-lucide="server-crash"></i></div>
+          <h3 class="tool-card__title">DNS Records Analyzer</h3>
+          <p class="tool-card__desc">Check records for misconfigured SPF, DMARC, or DKIM values allowing email spoofing.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--amber">DNS</span>
+            <span class="tag tag--green">SSID 10</span>
+          </div>
+        </div>
+
+        <!-- 11: Base64/Hex Encoder -->
+        <div class="tool-card" onclick="launchTool('encoder')" id="card-encoder">
+          <div class="tool-card__icon tool-card__icon--blue"><i data-lucide="binary"></i></div>
+          <h3 class="tool-card__title">Base64 & Hex Encoder</h3>
+          <p class="tool-card__desc">Encode and decode payloads into Base64, Hex, and URL hashes to analyze obfuscated scripts.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">Encoder</span>
+            <span class="tag tag--amber">SSID 11</span>
+          </div>
+        </div>
+
+        <!-- 12: Subdomain Enumerator -->
+        <div class="tool-card" onclick="launchTool('subdomain')" id="card-subdomain">
+          <div class="tool-card__icon tool-card__icon--red"><i data-lucide="network"></i></div>
+          <h3 class="tool-card__title">Subdomain Enumerator</h3>
+          <p class="tool-card__desc">Enumerate target DNS records to map subdomains and map out the corporate attack surface.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">Brute</span>
+            <span class="tag tag--amber">SSID 12</span>
+          </div>
+        </div>
+
+        <!-- 13: HTTP Header Checker (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('headers')" id="card-headers">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install headers</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--green"><i data-lucide="file-text"></i></div>
+          <h3 class="tool-card__title">HTTP Header Checker</h3>
+          <p class="tool-card__desc">Inspect URL endpoints for safety headers (HSTS, CSP, X-Frame-Options) to shield against clickjacking.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">HTTP</span>
+            <span class="tag tag--cyan">SSID 13</span>
+          </div>
+        </div>
+
+        <!-- 14: XSS Sandbox (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('xss')" id="card-xss">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install xss</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--cyan"><i data-lucide="code"></i></div>
+          <h3 class="tool-card__title">XSS Sandbox</h3>
+          <p class="tool-card__desc">Examine sanitization by inputting custom payloads and observing reflected XSS behaviors safely.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">Inject</span>
+            <span class="tag tag--green">SSID 14</span>
+          </div>
+        </div>
+
+        <!-- 15: Ransomware Simulator (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('ransomware')" id="card-ransomware">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install ransomware</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--magenta"><i data-lucide="alert-octagon"></i></div>
+          <h3 class="tool-card__title">Ransomware Simulator</h3>
+          <p class="tool-card__desc">A safe, educational demonstration showing how ransomware encrypts folders and accepts recovery keys.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--magenta">Ransom</span>
+            <span class="tag tag--cyan">SSID 15</span>
+          </div>
+        </div>
+
+        <!-- 16: EXIF Extractor (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('exif')" id="card-exif">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install exif</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--amber"><i data-lucide="image"></i></div>
+          <h3 class="tool-card__title">EXIF Metadata Extractor</h3>
+          <p class="tool-card__desc">Extract camera settings, timestamps, and GPS coordinates from mock photograph uploads.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--amber">EXIF</span>
+            <span class="tag tag--green">SSID 16</span>
+          </div>
+        </div>
+
+        <!-- 17: ARP Spoofing Detector (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('arp')" id="card-arp">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install arp</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--blue"><i data-lucide="eye-off"></i></div>
+          <h3 class="tool-card__title">ARP Spoofing Detector</h3>
+          <p class="tool-card__desc">Monitor network packets to catch ARP cache poisonings and intercept Man-In-The-Middle threats.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">ARP</span>
+            <span class="tag tag--amber">SSID 17</span>
+          </div>
+        </div>
+
+        <!-- 18: SSL/TLS Certificate Auditor (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('ssl')" id="card-ssl">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install ssl</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--red"><i data-lucide="shield-check"></i></div>
+          <h3 class="tool-card__title">SSL Certificate Auditor</h3>
+          <p class="tool-card__desc">Audit SSL/TLS cipher suites for security. Detect outdated cipher vulnerabilities.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">Ciphers</span>
+            <span class="tag tag--amber">SSID 18</span>
+          </div>
+        </div>
+
+        <!-- 19: SQL Injection Sandbox (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('sqli')" id="card-sqli">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install sqli</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--green"><i data-lucide="database-backup"></i></div>
+          <h3 class="tool-card__title">SQL Injection Sandbox</h3>
+          <p class="tool-card__desc">Simulate bypassing authentication logic using SQL injections and review vulnerability remediation.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">SQLi</span>
+            <span class="tag tag--cyan">SSID 19</span>
+          </div>
+        </div>
+
+        <!-- 20: WiFi Handshake Decrypter (LOCKED) -->
+        <div class="tool-card locked" onclick="launchTool('wifi')" id="card-wifi">
+          <div class="tool-card__lock">
+            <i data-lucide="lock" class="lock-icon"></i>
+            <span class="lock-text">Install via Terminal<br><code class="text-green font-bold">apt install wifi</code></span>
+          </div>
+          <div class="tool-card__icon tool-card__icon--cyan"><i data-lucide="radio"></i></div>
+          <h3 class="tool-card__title">WiFi Handshake Decrypter</h3>
+          <p class="tool-card__desc">Analyze WPA2 handshakes using wordlists to crack network passphrases client-side.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">WPA2</span>
+            <span class="tag tag--green">SSID 20</span>
           </div>
         </div>
       </div>
@@ -382,6 +790,435 @@
       </div>
     </section>
 
+    <!-- ==================== PORT SCANNER ==================== -->
+    <section class="section" id="section-portscan">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 07 — Host Security</div>
+          <h2 class="section__title">Port Scanner</h2>
+          <p class="section__subtitle">Probe local or remote hosts client-side to test for active port exposures.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="portscan-ip">Target IP or Hostname</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="portscan-ip" placeholder="e.g. 127.0.0.1 or localhost" style="flex: 1;">
+              <button class="btn btn--primary" onclick="startPortScan()"><i data-lucide="play" class="btn-icon"></i> Start Scan</button>
+            </div>
+          </div>
+          <div class="text-mono mt-lg" id="portscan-log" style="max-height: 120px; overflow-y: auto; font-size: 0.75rem; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border);">
+            > Ready. Enter host and execute scan.
+          </div>
+          <div id="portscan-results" class="mt-xl hidden">
+            <h4 class="text-mono mb-sm" style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted);">Probed Port Status Map</h4>
+            <table class="w-full text-left" style="font-size: 0.85rem; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem;">
+                  <th style="padding: 8px;">Port</th>
+                  <th style="padding: 8px;">Service</th>
+                  <th style="padding: 8px;">Status</th>
+                  <th style="padding: 8px;">Vulnerability Note</th>
+                </tr>
+              </thead>
+              <tbody id="portscan-results-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HASH CRACKER ==================== -->
+    <section class="section" id="section-hash">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 08 — Cryptography</div>
+          <h2 class="section__title">Hash Generator & Cracker</h2>
+          <p class="section__subtitle">Encrypt plaintext values or perform dictionary lookups to crack security hashes.</p>
+        </div>
+        <div class="tools-grid">
+          <div class="glass-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: var(--space-md);">Hash Generator</h3>
+            <div class="input-group">
+              <label for="hash-input-text">Input Text String</label>
+              <input type="text" class="input" id="hash-input-text" placeholder="Type text to hash..." oninput="runHashOperations()">
+            </div>
+            <div class="mt-md text-mono" style="font-size: 0.75rem;">
+              <p class="mb-sm"><strong>MD5 Hash:</strong><br><span id="hash-md5" class="text-secondary">—</span></p>
+              <p><strong>SHA-256 Hash:</strong><br><span id="hash-sha256" class="text-secondary">—</span></p>
+            </div>
+          </div>
+          <div class="glass-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: var(--space-md);">Hash Cracker</h3>
+            <div class="input-group">
+              <label for="crack-input-hash">Target Hash (MD5/SHA-256)</label>
+              <div class="flex gap-sm">
+                <input type="text" class="input" id="crack-input-hash" placeholder="Enter hash to crack...">
+                <button class="btn btn--primary btn--sm" onclick="crackHash()">Crack</button>
+              </div>
+            </div>
+            <div class="text-mono mt-md" style="font-size: 0.75rem;">
+              <strong>Result:</strong>
+              <div id="crack-result" class="text-secondary mt-sm">> Awaiting target hash query...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHOIS LOOKUP ==================== -->
+    <section class="section" id="section-whois">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 09 — Public OSINT</div>
+          <h2 class="section__title">WHOIS Lookup</h2>
+          <p class="section__subtitle">Search domain registry records to retrieve name servers, registrants, and domain creation histories.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="whois-domain">Domain Name</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="whois-domain" placeholder="e.g. google.com" style="flex: 1;">
+              <button class="btn btn--primary" onclick="runWhoisScan()"><i data-lucide="search" class="btn-icon"></i> Query WHOIS</button>
+            </div>
+          </div>
+          <pre class="text-mono mt-lg hidden" id="whois-output" style="max-height: 250px; overflow-y: auto; font-size: 0.75rem; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border); white-space: pre-wrap; word-wrap: break-word;">
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DNS ANALYZER ==================== -->
+    <section class="section" id="section-dns">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 10 — Mail & Domain Privacy</div>
+          <h2 class="section__title">DNS Records Analyzer</h2>
+          <p class="section__subtitle">Resolve nameserver zones to audit SPF, DMARC, and DKIM spoof-protection configurations.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="dns-domain">Domain Name</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="dns-domain" placeholder="e.g. targetdomain.com" style="flex: 1;">
+              <button class="btn btn--primary" onclick="runDnsScan()"><i data-lucide="play" class="btn-icon"></i> Audit Records</button>
+            </div>
+          </div>
+          <div id="dns-results" class="mt-xl hidden">
+            <table class="w-full text-left" style="font-size: 0.85rem; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem;">
+                  <th style="padding: 8px;">Type</th>
+                  <th style="padding: 8px;">Hostname</th>
+                  <th style="padding: 8px;">Value</th>
+                  <th style="padding: 8px;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="dns-results-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ENCODER ==================== -->
+    <section class="section" id="section-encoder">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 11 — Payload Analysis</div>
+          <h2 class="section__title">Base64 & Hex Encoder</h2>
+          <p class="section__subtitle">Convert or decode string data payloads between Hex, Base64, and URL safe formats.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="encoder-input">Input Data String</label>
+            <textarea class="input text-mono" id="encoder-input" rows="4" placeholder="Enter plaintext or obfuscated data..."></textarea>
+          </div>
+          <div class="flex gap-sm flex-wrap justify-center mt-md mb-lg">
+            <button class="btn btn--primary btn--sm" onclick="runEncoding('enc64')">Encode B64</button>
+            <button class="btn btn--primary btn--sm" onclick="runEncoding('dec64')">Decode B64</button>
+            <button class="btn btn--primary btn--sm" onclick="runEncoding('encHex')">Encode Hex</button>
+            <button class="btn btn--primary btn--sm" onclick="runEncoding('decHex')">Decode Hex</button>
+            <button class="btn btn--primary btn--sm" onclick="runEncoding('encUrl')">Encode URL</button>
+            <button class="btn btn--primary btn--sm" onclick="runEncoding('decUrl')">Decode URL</button>
+          </div>
+          <div class="input-group">
+            <label for="encoder-output">Processed Output Data</label>
+            <textarea class="input text-mono" id="encoder-output" rows="4" readonly placeholder="Output string appears here..."></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SUBDOMAIN ENUMERATOR ==================== -->
+    <section class="section" id="section-subdomain">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 12 — Mapping</div>
+          <h2 class="section__title">Subdomain Enumerator</h2>
+          <p class="section__subtitle">Scan DNS tables to construct a complete map of domain host namespaces.</p>
+        </div>
+        <div class="glass-card">
+          <div class="flex gap-md flex-wrap items-end">
+            <div class="input-group" style="flex: 2; margin-bottom: 0;">
+              <label for="subdomain-domain">Base Domain</label>
+              <input type="text" class="input input--lg" id="subdomain-domain" placeholder="e.g. target.com">
+            </div>
+            <div class="input-group" style="flex: 1; margin-bottom: 0;">
+              <label for="subdomain-speed">Audit Mode</label>
+              <select class="input input--lg" id="subdomain-speed">
+                <option value="fast">Fast (Direct DNS)</option>
+                <option value="stealth">Stealth (Rate Limited)</option>
+              </select>
+            </div>
+            <button class="btn btn--primary btn--lg" onclick="runSubdomainEnum()"><i data-lucide="play" class="btn-icon"></i> Enumerate</button>
+          </div>
+          <div class="text-mono mt-lg" id="subdomain-log" style="max-height: 120px; overflow-y: auto; font-size: 0.75rem; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border);">
+            > Awaiting host domain execution command.
+          </div>
+          <div id="subdomain-results" class="mt-xl hidden">
+            <table class="w-full text-left" style="font-size: 0.85rem; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem;">
+                  <th style="padding: 8px;">Subdomain Host</th>
+                  <th style="padding: 8px;">IP Address</th>
+                  <th style="padding: 8px;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="subdomain-results-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HTTP HEADERS ==================== -->
+    <section class="section" id="section-headers">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 13 — Web Defences</div>
+          <h2 class="section__title">HTTP Header Checker</h2>
+          <p class="section__subtitle">Audit web endpoints to confirm HTTP security-hardening configurations.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="header-url">Target URL</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="header-url" placeholder="https://secureweb.com" style="flex: 1;">
+              <button class="btn btn--primary" onclick="runHeaderScan()"><i data-lucide="play" class="btn-icon"></i> Check Headers</button>
+            </div>
+          </div>
+          <div id="header-results" class="mt-xl hidden">
+            <div class="flex justify-between items-center mb-md">
+              <h3 class="text-mono" style="font-size: 0.9rem;">Hardening Rating:</h3>
+              <span class="tag tag--green" id="header-score">100/100</span>
+            </div>
+            <div class="results-list" id="header-items">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== XSS SANDBOX ==================== -->
+    <section class="section" id="section-xss">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 14 — Injection Audits</div>
+          <h2 class="section__title">XSS Sandbox</h2>
+          <p class="section__subtitle">Safely evaluate inputs for cross-site scripting reflect vectors.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="xss-input">Custom Payload Input</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="xss-input" placeholder="e.g. <script>alert(1)</script>" style="flex: 1;">
+              <button class="btn btn--primary" onclick="runXssTest()"><i data-lucide="play" class="btn-icon"></i> Test Injection</button>
+            </div>
+          </div>
+          <h4 class="text-mono mb-sm mt-xl" style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted);">Reflected Output Container</h4>
+          <div id="xss-reflection" style="min-height: 80px; background: rgba(0,0,0,0.3); border: 1px dashed var(--border); border-radius: var(--radius-md); padding: var(--space-md);">
+            [Reflected output content displays here]
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== RANSOMWARE SIMULATOR ==================== -->
+    <section class="section" id="section-ransomware">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 15 — Attack Simulation</div>
+          <h2 class="section__title">Ransomware Simulator</h2>
+          <p class="section__subtitle">Safe demonstration showing how encryption malware infects folders and locks client data.</p>
+        </div>
+        <div class="tools-grid">
+          <div class="glass-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: var(--space-md);">Endpoint Directory</h3>
+            <table class="w-full text-left" style="font-size: 0.85rem; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem;">
+                  <th style="padding: 8px;">File Name</th>
+                  <th style="padding: 8px;">Size</th>
+                  <th style="padding: 8px;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="ransomware-files">
+              </tbody>
+            </table>
+            <button class="btn btn--danger w-full mt-lg" id="ransomware-btn" onclick="runRansomwareDemo()">Trigger Malware Attack</button>
+          </div>
+          <div class="glass-card flex flex-col justify-center items-center text-center hidden" id="ransomware-decrypt-box" style="border-color: var(--destructive);">
+            <i data-lucide="shield-alert" class="icon-lg text-red mb-md"></i>
+            <h3 class="text-red font-bold mb-sm">SYSTEM COMPROMISED</h3>
+            <p class="text-secondary mb-lg" style="font-size:0.85rem;">All target directory documents have been encrypted with AES-256 keys. Run a secondary audit to recover the key signature.</p>
+            <div class="input-group w-full">
+              <input type="text" class="input text-center" id="ransomware-key" placeholder="Enter Decryption Key Signature">
+            </div>
+            <button class="btn btn--primary w-full" onclick="decryptRansomware()">Submit Decrypt Key</button>
+            <div class="text-muted mt-md text-mono" style="font-size:0.65rem;">Tip: Key is <code class="text-green font-bold">GURULABS-DECRYPT-KEY-2026</code></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EXIF EXTRACTOR ==================== -->
+    <section class="section" id="section-exif">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 16 — Image OSINT</div>
+          <h2 class="section__title">EXIF Metadata Extractor</h2>
+          <p class="section__subtitle">Audit uploaded image tags to expose hidden GPS locations and device parameters.</p>
+        </div>
+        <div class="glass-card">
+          <h3 style="font-family: var(--font-heading); font-size: 1.10rem; font-weight: 700; color: var(--text-bright); margin-bottom: var(--space-md);">Choose Sample Photo</h3>
+          <div class="flex gap-md justify-center flex-wrap">
+            <button class="btn btn--outline" onclick="selectExifPhoto('office')"><i data-lucide="image" class="btn-icon"></i> Sample 1: Office.jpg</button>
+            <button class="btn btn--outline" onclick="selectExifPhoto('beach')"><i data-lucide="image" class="btn-icon"></i> Sample 2: Beach.jpg</button>
+            <button class="btn btn--outline" onclick="selectExifPhoto('apartment')"><i data-lucide="image" class="btn-icon"></i> Sample 3: Marina.jpg</button>
+          </div>
+          <div id="exif-results" class="hidden">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ARP SPOOFING ==================== -->
+    <section class="section" id="section-arp">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 17 — Link Layer Analysis</div>
+          <h2 class="section__title">ARP Spoofing Detector</h2>
+          <p class="section__subtitle">Sniff network link caches to detect rogue MAC conflict mappings.</p>
+        </div>
+        <div class="glass-card">
+          <div class="flex justify-between items-center mb-md">
+            <span class="text-mono" style="font-size:0.8rem;">ARP Cache Monitor Daemon</span>
+            <button class="btn btn--primary" id="arp-btn" onclick="toggleArpMonitor()">Start ARP Monitor</button>
+          </div>
+          <div class="text-mono mt-lg" id="arp-feed" style="height: 250px; overflow-y: auto; font-size: 0.75rem; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border);">
+            > Engine idle. Press Start to initialize ARP mapping sniffing.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SSL AUDITOR ==================== -->
+    <section class="section" id="section-ssl">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 18 — TLS Audits</div>
+          <h2 class="section__title">SSL Certificate Auditor</h2>
+          <p class="section__subtitle">Examine target certificates to audit encryption keys and supported TLS ciphers.</p>
+        </div>
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="ssl-domain">Target Domain Name</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="ssl-domain" placeholder="google.com" style="flex: 1;">
+              <button class="btn btn--primary" onclick="runSslScan()"><i data-lucide="play" class="btn-icon"></i> Start Audit</button>
+            </div>
+          </div>
+          <div id="ssl-results" class="mt-xl hidden">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SQL INJECTION ==================== -->
+    <section class="section" id="section-sqli">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 19 — Auth Bypass Mockup</div>
+          <h2 class="section__title">SQL Injection Sandbox</h2>
+          <p class="section__subtitle">Evaluate authentication queries against query manipulation bypass logic.</p>
+        </div>
+        <div class="tools-grid">
+          <div class="glass-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: var(--space-md);">Admin Login Panel</h3>
+            <div class="input-group">
+              <label for="sqli-user">Username input</label>
+              <input type="text" class="input" id="sqli-user" placeholder="admin or payload...">
+            </div>
+            <div class="input-group">
+              <label for="sqli-pass">Password input</label>
+              <input type="password" class="input" id="sqli-pass" placeholder="password...">
+            </div>
+            <button class="btn btn--primary w-full" onclick="runSqliScan()">Query Backend Database</button>
+            <div class="text-muted mt-md text-mono" style="font-size:0.65rem;">Try bypass: <code class="text-green font-bold">' OR 1=1 --</code> in Username</div>
+          </div>
+          <div class="glass-card">
+            <h3 style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: var(--space-md);">SQL Console Log</h3>
+            <div class="text-mono" id="sqli-log" style="font-size:0.75rem; color:var(--primary); background:rgba(0,0,0,0.3); padding:var(--space-md); border-radius:var(--radius-md); border:1px solid var(--border); min-height:80px;">
+              > Ready. Awaiting login attempt.
+            </div>
+            <div id="sqli-results" class="hidden">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WIFI DECRYPTER ==================== -->
+    <section class="section" id="section-wifi">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+        <div class="section__header">
+          <div class="section__badge">// Tool 20 — WPA2 Handshakes</div>
+          <h2 class="section__title">WiFi Handshake Decrypter</h2>
+          <p class="section__subtitle">Brute-force captured WPA2 handshake keys using wordlists client-side.</p>
+        </div>
+        <div class="glass-card">
+          <div class="flex justify-between items-center mb-md">
+            <span class="text-mono" style="font-size: 0.8rem;">SSID: GURULABS_OFFICE_5G</span>
+            <button class="btn btn--primary" id="wifi-btn" onclick="runWifiCrack()">Decrypt Handshake</button>
+          </div>
+          <div class="text-mono mt-lg" id="wifi-log" style="height: 180px; overflow-y: auto; font-size: 0.75rem; color: var(--text-secondary); background: rgba(0,0,0,0.3); padding: var(--space-md); border-radius: var(--radius-md); border: 1px solid var(--border);">
+            > Handshake capture file: office-wifi.cap loaded.
+          </div>
+          <div id="wifi-result" class="glass-card mt-md hidden" style="border-color: var(--primary);">
+            <h4 class="text-green font-bold" style="font-size: 0.95rem;"><i data-lucide="check-circle" class="icon-inline"></i> DECRYPT COMPLETE</h4>
+            <p class="text-secondary mt-sm" style="font-size: 0.8rem;">WPA2 handshake cracked successfully in 2.8 seconds. Network password recovered: <code class="text-green font-bold">GURULABS-WIFI-KEY-2026</code></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
       <img src="logo.png" alt="WhoGoesYou.gl" class="footer__logo">
@@ -400,12 +1237,21 @@
   <!-- Scripts -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="app.js"></script>
+  <script src="tools/more-tools.js"></script>
   <script src="tools/phishing-simulator.js"></script>
   <script src="tools/password-analyzer.js"></script>
   <script src="tools/social-engineering-quiz.js"></script>
   <script src="tools/osint-scanner.js"></script>
   <script src="tools/network-scanner.js"></script>
   <script src="tools/breach-checker.js"></script>
+  <script>
+    // Initialize Ransomware file grid on load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof initRansomwareFiles === 'function') {
+        initRansomwareFiles();
+      }
+    });
+  </script>
 </body>
 
 </html>
