@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="WhoGoesYou.gl — A comprehensive digital security assessment platform. Test your exposure with 6 interactive tools.">
+  <meta name="keywords" content="security, digital posture, phishing, password, OSINT, Gurulabs Africa">
+  <meta name="author" content="Gurulabs Africa">
+  <meta name="theme-color" content="#020203">
+
+  <title>WhoGoesYou.gl — Digital Posture Assessment Platform</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Matrix Particle Canvas -->
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- Ambient Glow Blobs -->
+  <div class="ambient-blob ambient-blob--green"></div>
+  <div class="ambient-blob ambient-blob--cyan"></div>
+  <div class="ambient-blob ambient-blob--magenta"></div>
+
+  <!-- App Container -->
+  <div class="app-container">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="nav" id="nav">
+      <div class="nav__brand" onclick="navigateTo('home')">
+        <img src="logo.png" alt="WhoGoesYou.gl Logo" class="nav__logo-img">
+        <span class="nav__logo">WhoGoesYou<span style="color: var(--accent)">.gl</span></span>
+      </div>
+
+      <button class="nav__hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__links" id="navLinks">
+        <li><a class="nav__link active" data-section="home" onclick="navigateTo('home')">Home</a></li>
+        <li><a class="nav__link" data-section="tools" onclick="navigateTo('tools')">Tools</a></li>
+        <li><a class="nav__link" data-section="phishing" onclick="navigateTo('phishing')">Phishing</a></li>
+        <li><a class="nav__link" data-section="password" onclick="navigateTo('password')">Password</a></li>
+        <li><a class="nav__link" data-section="quiz" onclick="navigateTo('quiz')">Quiz</a></li>
+        <li><a class="nav__link" data-section="osint" onclick="navigateTo('osint')">OSINT</a></li>
+        <li><a class="nav__link" data-section="network" onclick="navigateTo('network')">Network</a></li>
+        <li><a class="nav__link" data-section="breach" onclick="navigateTo('breach')">Breach</a></li>
+      </ul>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero section active" id="section-home">
+      <img src="logo.png" alt="WhoGoesYou.gl" class="hero__logo">
+
+
+      <h1 class="hero__title">
+        <span class="hero__title-line text-white">Know Your</span>
+        <span class="hero__title-line glitch" data-text="Digital Armor">
+          <span class="text-green">Digital</span> <span class="text-cyan">Armor</span>
+        </span>
+      </h1>
+
+      <p class="hero__subtitle">
+        Six powerful tools to assess your cybersecurity posture.
+        Identify vulnerabilities, test your awareness, and strengthen
+        your digital defenses — all in one platform.
+      </p>
+
+      <div class="hero__cta-group">
+        <button class="btn btn--primary btn--lg" onclick="navigateTo('tools')" id="cta-explore">
+          <i data-lucide="play" class="btn-icon"></i> Explore Tools
+        </button>
+        <button class="btn btn--outline btn--lg" onclick="navigateTo('quiz')" id="cta-quiz">
+          <i data-lucide="award" class="btn-icon"></i> Take the Quiz
+        </button>
+      </div>
+
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-value" id="stat-tools">6</span>
+          <span class="hero__stat-label">Security Tools</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value" id="stat-scenarios">25+</span>
+          <span class="hero__stat-label">Scenarios</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value" id="stat-client">100%</span>
+          <span class="hero__stat-label">Client-Side</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TOOLS DASHBOARD ==================== -->
+    <section class="section" id="section-tools">
+      <div class="section__header">
+        <div class="section__badge">// Security Toolkit</div>
+        <h2 class="section__title">Choose Your Weapon</h2>
+        <p class="section__subtitle">Six interactive tools to test and improve your cybersecurity awareness. All
+          processing happens locally — your data never leaves your browser.</p>
+      </div>
+
+      <div class="tools-grid">
+        <!-- Phishing Simulator -->
+        <div class="tool-card" onclick="navigateTo('phishing')" id="card-phishing">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="tool-card__icon tool-card__icon--red"><i data-lucide="mail-warning"></i></div>
+          <h3 class="tool-card__title">Phishing Simulator</h3>
+          <p class="tool-card__desc">Can you spot a fake email? Test your ability to identify phishing attempts with
+            realistic scenarios and learn to recognize red flags.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">Interactive</span>
+            <span class="tag tag--amber">10 Scenarios</span>
+          </div>
+        </div>
+
+        <!-- Password Analyzer -->
+        <div class="tool-card" onclick="navigateTo('password')" id="card-password">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="tool-card__icon tool-card__icon--green"><i data-lucide="lock"></i></div>
+          <h3 class="tool-card__title">Password Analyzer</h3>
+          <p class="tool-card__desc">How strong is your password? Get real-time strength analysis, time-to-crack
+            estimates, and actionable improvement suggestions.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--green">Real-Time</span>
+            <span class="tag tag--cyan">Entropy-Based</span>
+          </div>
+        </div>
+
+        <!-- Social Engineering Quiz -->
+        <div class="tool-card" onclick="navigateTo('quiz')" id="card-quiz">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="tool-card__icon tool-card__icon--magenta"><i data-lucide="brain"></i></div>
+          <h3 class="tool-card__title">Social Engineering Quiz</h3>
+          <p class="tool-card__desc">How well can you resist social engineering? Take a 15-question quiz covering phone,
+            email, and in-person manipulation tactics.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--magenta">15 Questions</span>
+            <span class="tag tag--cyan">Badge System</span>
+          </div>
+        </div>
+
+        <!-- OSINT Scanner -->
+        <div class="tool-card" onclick="navigateTo('osint')" id="card-osint">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="tool-card__icon tool-card__icon--cyan"><i data-lucide="search"></i></div>
+          <h3 class="tool-card__title">OSINT Self-Scan</h3>
+          <p class="tool-card__desc">Discover your digital footprint. See what public information could be found about
+            you and get personalized privacy recommendations.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">Self-Assessment</span>
+            <span class="tag tag--green">Educational</span>
+          </div>
+        </div>
+
+        <!-- Network Scanner -->
+        <div class="tool-card" onclick="navigateTo('network')" id="card-network">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="tool-card__icon tool-card__icon--amber"><i data-lucide="globe"></i></div>
+          <h3 class="tool-card__title">Network Scanner</h3>
+          <p class="tool-card__desc">How unique is your browser fingerprint? Analyze your browser's exposure vectors,
+            WebRTC leaks, and tracking vulnerability.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--amber">Fingerprint</span>
+            <span class="tag tag--green">Privacy Score</span>
+          </div>
+        </div>
+
+        <!-- Breach Checker -->
+        <div class="tool-card" onclick="navigateTo('breach')" id="card-breach">
+          <div class="hud-corner hud-corner--tl"></div>
+          <div class="hud-corner hud-corner--tr"></div>
+          <div class="hud-corner hud-corner--bl"></div>
+          <div class="hud-corner hud-corner--br"></div>
+          <div class="tool-card__icon tool-card__icon--blue"><i data-lucide="shield-alert"></i></div>
+          <h3 class="tool-card__title">Breach Checker</h3>
+          <p class="tool-card__desc">Has your email been compromised? Check against known breach databases and learn
+            what steps to take if you've been exposed.</p>
+          <div class="tool-card__tags">
+            <span class="tag tag--cyan">Email Lookup</span>
+            <span class="tag tag--amber">Action Plan</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PHISHING SIMULATOR ==================== -->
+    <section class="section" id="section-phishing">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+
+        <div class="section__header">
+          <div class="section__badge">// Tool 01 — Phishing Awareness</div>
+          <h2 class="section__title">Phishing Simulator</h2>
+          <p class="section__subtitle">Can you spot the red flags? Examine each email and click on the suspicious
+            elements to reveal the phishing indicators.</p>
+        </div>
+
+        <div class="quiz-progress" id="phishing-progress"></div>
+
+        <div id="phishing-container">
+          <!-- Populated by phishing-simulator.js -->
+        </div>
+
+        <div id="phishing-results" class="hidden">
+          <!-- Score shown after completion -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PASSWORD ANALYZER ==================== -->
+    <section class="section" id="section-password">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+
+        <div class="section__header">
+          <div class="section__badge">// Tool 02 — Password Analysis</div>
+          <h2 class="section__title">Password Analyzer</h2>
+          <p class="section__subtitle">Enter a password below to analyze its strength. Your password is never stored or
+            transmitted — all analysis happens locally.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="password-input">Enter password to analyze</label>
+            <div style="position: relative;">
+              <input type="password" class="input input--lg" id="password-input"
+                placeholder="Type a password to test..." autocomplete="off">
+              <button class="btn btn--ghost" id="password-toggle" onclick="togglePasswordVisibility()"
+                style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);"><i data-lucide="eye"
+                  class="icon-sm"></i></button>
+            </div>
+          </div>
+
+          <div class="meter mt-md" id="password-meter">
+            <div class="meter__fill" id="password-meter-fill"></div>
+          </div>
+
+          <div class="flex justify-between items-center mt-md">
+            <span class="text-mono" style="font-size: 0.8rem;" id="password-strength-label">Enter a password</span>
+            <span class="text-mono text-muted" style="font-size: 0.7rem;" id="password-entropy">0 bits</span>
+          </div>
+
+          <div class="mt-xl" id="password-details">
+            <!-- Populated by password-analyzer.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SOCIAL ENGINEERING QUIZ ==================== -->
+    <section class="section" id="section-quiz">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+
+        <div class="section__header">
+          <div class="section__badge">// Tool 03 — Social Engineering</div>
+          <h2 class="section__title">Social Engineering Quiz</h2>
+          <p class="section__subtitle">Test your ability to recognize social engineering attacks across 15 real-world
+            scenarios.</p>
+        </div>
+
+        <div class="quiz-progress" id="quiz-progress"></div>
+
+        <div class="glass-card" id="quiz-container">
+          <!-- Populated by social-engineering-quiz.js -->
+        </div>
+
+        <div id="quiz-results" class="hidden">
+          <!-- Score shown after completion -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== OSINT SCANNER ==================== -->
+    <section class="section" id="section-osint">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+
+        <div class="section__header">
+          <div class="section__badge">// Tool 04 — OSINT Self-Scan</div>
+          <h2 class="section__title">Digital Footprint Scanner</h2>
+          <p class="section__subtitle">Enter your own username or email to see what types of information could be
+            publicly accessible about you.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="osint-input">Enter your username or email</label>
+            <div class="flex gap-md">
+              <input type="text" class="input input--lg" id="osint-input" placeholder="e.g. johndoe or user@example.com"
+                style="flex: 1;">
+              <button class="btn btn--primary" id="osint-scan-btn" onclick="startOsintScan()"><i data-lucide="play"
+                  class="btn-icon"></i> Scan</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="osint-results" class="mt-xl hidden">
+          <!-- Populated by osint-scanner.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== NETWORK SCANNER ==================== -->
+    <section class="section" id="section-network">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+
+        <div class="section__header">
+          <div class="section__badge">// Tool 05 — Browser Fingerprint</div>
+          <h2 class="section__title">Network Scanner</h2>
+          <p class="section__subtitle">Analyzing your browser's fingerprint and network exposure vectors. This shows
+            what trackers can see about you.</p>
+        </div>
+
+        <div id="network-scan-area">
+          <div class="scan-container" id="network-scanning">
+            <div class="scan-ring">
+              <span class="scan-ring__value" id="network-score">—</span>
+            </div>
+            <p class="scan-status">Initializing scan<span class="blink">_</span></p>
+            <button class="btn btn--accent mt-xl" id="network-start-btn" onclick="startNetworkScan()"><i
+                data-lucide="play" class="btn-icon"></i> Start Scan</button>
+          </div>
+        </div>
+
+        <div id="network-results" class="mt-xl hidden">
+          <!-- Populated by network-scanner.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== BREACH CHECKER ==================== -->
+    <section class="section" id="section-breach">
+      <div class="tool-panel active">
+        <button class="tool-panel__back" onclick="navigateTo('tools')">← Back to Tools</button>
+
+        <div class="section__header">
+          <div class="section__badge">// Tool 06 — Breach Detection</div>
+          <h2 class="section__title">Breach Checker</h2>
+          <p class="section__subtitle">Check if your email address has appeared in known data breaches. Uses simulated
+            data for demonstration.</p>
+        </div>
+
+        <div class="glass-card">
+          <div class="input-group">
+            <label for="breach-input">Enter your email address</label>
+            <div class="flex gap-md">
+              <input type="email" class="input input--lg" id="breach-input" placeholder="your@email.com"
+                style="flex: 1;">
+              <button class="btn btn--danger" id="breach-check-btn" onclick="checkBreach()"><i
+                  data-lucide="shield-alert" class="btn-icon"></i> Check</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="breach-results" class="mt-xl hidden">
+          <!-- Populated by breach-checker.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+      <img src="logo.png" alt="WhoGoesYou.gl" class="footer__logo">
+      <div class="footer__brand">WhoGoesYou<span style="color: var(--accent)">.gl</span></div>
+      <div class="footer__powered">Powered by Gurulabs Africa</div>
+      <p class="footer__disclaimer">
+        This platform is for educational purposes only. All analysis happens client-side.
+        No personal data is collected, stored, or transmitted. Built for digital security awareness.
+      </p>
+    </footer>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="app.js"></script>
+  <script src="tools/phishing-simulator.js"></script>
+  <script src="tools/password-analyzer.js"></script>
+  <script src="tools/social-engineering-quiz.js"></script>
+  <script src="tools/osint-scanner.js"></script>
+  <script src="tools/network-scanner.js"></script>
+  <script src="tools/breach-checker.js"></script>
+</body>
+
+</html>
